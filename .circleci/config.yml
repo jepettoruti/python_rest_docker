@@ -52,8 +52,8 @@ jobs:
           name: Run tests
           command: |
             
-            docker-compose -f ~/app/docker-compose.test.yml up &
-            sleep 10
+            docker-compose -f ~/app/docker-compose.test.yml --no-recreate up &
+            sleep 30
             curl --fail http://127.0.0.1:8000/ 
             docker-compose -f ~/app/docker-compose.test.yml down
 
