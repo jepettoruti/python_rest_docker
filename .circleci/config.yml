@@ -50,7 +50,9 @@ jobs:
 
       - run:
           name: Start docker-compose in background
-          command: docker-compose -f ~/app/docker-compose.test.yml up
+          command: |
+            set +o pipefail
+            docker-compose -f ~/app/docker-compose.test.yml up | true
           background: true
 
       - run:
