@@ -47,12 +47,20 @@ jobs:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
             - /caches/app.tar
-        
+
+      - run:
+          name: Start docker-compose in background
+          command: docker-compose -f ~/app/docker-compose.test.yml up
+          background: true
+
       - run:
           name: Run tests
           command: |
-              docker-compose -f ~/app/docker-compose.test.yml up &
               curl --fail http://127.0.0.1:8000/ 
+
+      - run:
+          name: Cleanup
+          command: |
               docker-compose -f ~/app/docker-compose.test.yml down
 
       
